@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
+  autos    Auto[]
+}
+
+model Auto {
+  id       String    @id @default(uuid())
+  userId   String
+  name     String
+  user     User      @relation(fields: [userId], references: [id])
+  trigger  Trigger?
+  action   Action[]
+  autoRuns AutoRun[]
+}
+
+model Trigger {
+  id                 String @id @default(uuid())
+  autoId             String @unique
+  availableTriggerId String
+
+  auto Auto             @relation(fields: [autoId], references: [id])
+  type AvailableTrigger @relation(fields: [availableTriggerId], references: [id])
+}
+
+model AvailableTrigger {
+  id       String    @id @default(uuid())
+  name     String
+  triggers Trigger[]
+}
+
+model Action {
+  id                String @id @default(uuid())
+  autoId            String @unique
+  availableActionId String
+
+  auto         Auto            @relation(fields: [autoId], references: [id])
+  type         AvailableAction @relation(fields: [availableActionId], references: [id])
+  sortingOrder Int             @default(0)
+}
+
+model AvailableAction {
+  id      String   @id @default(uuid())
+  name    String
+  actions Action[]
+}
+
+model AutoRun {
+  id            String         @id @default(uuid())
+  autoId        String
+  metadata      Json?
+  auto          Auto           @relation(fields: [autoId], references: [id])
+  autoRunOutbox AutoRunOutbox?
+}
+
+model AutoRunOutbox {
+  id        String  @id @default(uuid())
+  autoRunId String  @unique
+  autoRun   AutoRun @relation(fields: [autoRunId], references: [id])
+}
