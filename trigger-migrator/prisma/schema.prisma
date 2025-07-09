@@ -23,13 +23,14 @@ model User {
 }
 
 model Auto {
-  id       String    @id @default(uuid())
-  userId   String
-  name     String
-  user     User      @relation(fields: [userId], references: [id])
-  trigger  Trigger?
-  action   Action[]
-  autoRuns AutoRun[]
+  id          String    @id @default(uuid())
+  userId      String
+  name        String
+  description String?
+  user        User      @relation(fields: [userId], references: [id])
+  trigger     Trigger?
+  actions      Action[]
+  autoRuns    AutoRun[]
 }
 
 model Trigger {

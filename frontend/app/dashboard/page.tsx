@@ -2,7 +2,7 @@
 import { DarkButton } from "@/components/buttons/DarkButton";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL, HOOKS_URL } from "../config";
 import { LinkButton } from "@/components/buttons/LinkButton";
 import { useRouter } from "next/navigation";
 
@@ -125,8 +125,9 @@ function AutoTaskTable({ autoTasks }: { autoTasks: AutoTask[] }) {
         <thead>
           <tr className="bg-gray-100 border-b">
             <th className="px-4 py-2 text-left">Name</th>
-            <th className="px-4 py-2 text-left">Last Edit</th>
-            <th className="px-4 py-2 text-left">Running</th>
+            <th className="px-4 py-2 text-left">ID</th>
+            <th className="px-4 py-2 text-left">Created At</th>
+            <th className="px-4 py-2 text-left">Webhook URL</th>
             <th className="px-4 py-2 text-left">Go</th>
           </tr>
         </thead>
@@ -143,6 +144,7 @@ function AutoTaskTable({ autoTasks }: { autoTasks: AutoTask[] }) {
               </td>
               <td className="px-4 py-2">{task.description}</td>
               <td className="px-4 py-2">Nov 13, 2024</td>
+              <td className="px-4 py-2">{`${HOOKS_URL}/hooks/catch/1/${task.id}`}</td>
               <td className="px-4 py-2">
                 <LinkButton
                   onClick={() => {

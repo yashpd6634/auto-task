@@ -142,7 +142,8 @@ exports.Prisma.TriggerScalarFieldEnum = {
 
 exports.Prisma.AvailableTriggerScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  image: 'image'
 };
 
 exports.Prisma.ActionScalarFieldEnum = {
@@ -154,7 +155,8 @@ exports.Prisma.ActionScalarFieldEnum = {
 
 exports.Prisma.AvailableActionScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  image: 'image'
 };
 
 exports.Prisma.AutoRunScalarFieldEnum = {
