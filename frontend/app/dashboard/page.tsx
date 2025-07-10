@@ -19,6 +19,7 @@ interface AutoTask {
     type: {
       id: string;
       name: string;
+      image: string;
     };
   }>;
   trigger: {
@@ -28,6 +29,7 @@ interface AutoTask {
     type: {
       id: string;
       name: string;
+      image: string;
     };
   };
 }
@@ -71,6 +73,8 @@ export default function Dashboard() {
           type: {
             id: "type1",
             name: "Mail",
+            image:
+              "https://help.apple.com/assets/679AC31B6FBB32042D0B4356/679AC31D6FBB32042D0B4363/en_GB/e4dbb8e240d50cf30bab73b272a3760b.png",
           },
         },
         {
@@ -81,6 +85,8 @@ export default function Dashboard() {
           type: {
             id: "type2",
             name: "Payment",
+            image:
+              "https://qashier.com/sg/wp-content/uploads/sites/12/2023/07/Qashierx2-icons-fault.png",
           },
         },
       ],
@@ -91,6 +97,8 @@ export default function Dashboard() {
         type: {
           id: "type1",
           name: "Webhook",
+          image:
+            "https://kb.pavietnam.vn/wp-content/uploads/2024/08/Webhook-3.png",
         },
       },
     },
@@ -134,11 +142,11 @@ function AutoTaskTable({ autoTasks }: { autoTasks: AutoTask[] }) {
         <tbody>
           {autoTasks.map((task) => (
             <tr key={task.id} className="hover:bg-gray-50 border-b py-4">
-              <td className="px-4 py-2">
-                {task.trigger.type.name}{" "}
+              <td className="px-4 py-2 flex">
+                <img src={task.trigger.type.image} width={30} height={20} />{" "}
                 {task.actions.map((action) => (
                   <span key={action.id} className="pr-1">
-                    {action.type.name}
+                    <img src={action.type.image} width={30} height={20} />
                   </span>
                 ))}
               </td>

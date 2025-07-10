@@ -137,7 +137,8 @@ exports.Prisma.AutoScalarFieldEnum = {
 exports.Prisma.TriggerScalarFieldEnum = {
   id: 'id',
   autoId: 'autoId',
-  availableTriggerId: 'availableTriggerId'
+  availableTriggerId: 'availableTriggerId',
+  metadata: 'metadata'
 };
 
 exports.Prisma.AvailableTriggerScalarFieldEnum = {
@@ -150,6 +151,7 @@ exports.Prisma.ActionScalarFieldEnum = {
   id: 'id',
   autoId: 'autoId',
   availableActionId: 'availableActionId',
+  metadata: 'metadata',
   sortingOrder: 'sortingOrder'
 };
 
@@ -173,6 +175,10 @@ exports.Prisma.AutoRunOutboxScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.NullableJsonNullValueInput = {

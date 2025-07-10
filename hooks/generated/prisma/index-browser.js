@@ -130,29 +130,35 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.AutoScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  name: 'name'
+  name: 'name',
+  description: 'description'
 };
 
 exports.Prisma.TriggerScalarFieldEnum = {
   id: 'id',
   autoId: 'autoId',
-  availableTriggerId: 'availableTriggerId'
+  availableTriggerId: 'availableTriggerId',
+  metadata: 'metadata'
 };
 
 exports.Prisma.AvailableTriggerScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  image: 'image'
 };
 
 exports.Prisma.ActionScalarFieldEnum = {
   id: 'id',
   autoId: 'autoId',
-  availableActionId: 'availableActionId'
+  availableActionId: 'availableActionId',
+  metadata: 'metadata',
+  sortingOrder: 'sortingOrder'
 };
 
 exports.Prisma.AvailableActionScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  image: 'image'
 };
 
 exports.Prisma.AutoRunScalarFieldEnum = {
@@ -171,6 +177,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
@@ -181,15 +191,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 
 

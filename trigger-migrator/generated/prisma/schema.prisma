@@ -23,19 +23,21 @@ model User {
 }
 
 model Auto {
-  id       String    @id @default(uuid())
-  userId   String
-  name     String
-  user     User      @relation(fields: [userId], references: [id])
-  trigger  Trigger?
-  action   Action[]
-  autoRuns AutoRun[]
+  id          String    @id @default(uuid())
+  userId      String
+  name        String
+  description String?
+  user        User      @relation(fields: [userId], references: [id])
+  trigger     Trigger?
+  actions     Action[]
+  autoRuns    AutoRun[]
 }
 
 model Trigger {
   id                 String @id @default(uuid())
   autoId             String @unique
   availableTriggerId String
+  metadata           Json   @default("{}")
 
   auto Auto             @relation(fields: [autoId], references: [id])
   type AvailableTrigger @relation(fields: [availableTriggerId], references: [id])
@@ -44,6 +46,7 @@ model Trigger {
 model AvailableTrigger {
   id       String    @id @default(uuid())
   name     String
+  image    String
   triggers Trigger[]
 }
 
@@ -51,6 +54,7 @@ model Action {
   id                String @id @default(uuid())
   autoId            String @unique
   availableActionId String
+  metadata          Json   @default("{}")
 
   auto         Auto            @relation(fields: [autoId], references: [id])
   type         AvailableAction @relation(fields: [availableActionId], references: [id])
@@ -60,6 +64,7 @@ model Action {
 model AvailableAction {
   id      String   @id @default(uuid())
   name    String
+  image   String
   actions Action[]
 }
 
