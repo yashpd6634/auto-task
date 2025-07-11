@@ -143,6 +143,7 @@ export default function CreateAutoTaskPage() {
                   id: props.id,
                   name: props.name,
                 });
+                setSelectedModalIndex(null);
               } else {
                 setSelectedActions((a) => {
                   let newActions = [...a];
@@ -154,6 +155,7 @@ export default function CreateAutoTaskPage() {
                   };
                   return newActions;
                 });
+                setSelectedModalIndex(null);
               }
             }}
             index={selectedModalIndex}
@@ -186,7 +188,7 @@ function Modal({
         <div className="relative bg-white rounded-lg shadow ">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
             <div className="text-xl">
-              Select {index === 1 ? "Trigger" : "Action"}
+              Select {isTrigger ? "Trigger" : "Action"}
             </div>
             <button
               type="button"
@@ -210,7 +212,6 @@ function Modal({
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                 />
               </svg>
-              <span className="sr-only">Close modal</span>
             </button>
           </div>
           {step === 1 && selectedAction?.id === "email" && (
@@ -223,7 +224,7 @@ function Modal({
               }}
             />
           )}
-          {step === 1 && selectedAction?.id === "solana" && (
+          {step === 1 && selectedAction?.id === "whatsapp" && (
             <SolanaSelector
               setMetadata={(metadata) => {
                 onSelect({
@@ -233,7 +234,7 @@ function Modal({
               }}
             />
           )}
-          {step === 1 && (
+          {step === 0 && (
             <div className="p-4 md:p-5 space-y-4">
               {availableItems.map(({ id, name, image }) => {
                 return (

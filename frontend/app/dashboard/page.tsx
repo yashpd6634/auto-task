@@ -55,54 +55,53 @@ function useAutoTasks() {
 }
 
 export default function Dashboard() {
-  // const { loading, autoTasks } = useAutoTasks();
-
-  const loading = false;
-  const autoTasks: AutoTask[] = [
-    {
-      id: "1",
-      userId: "user1",
-      name: "Test Task",
-      description: "This is a test task",
-      actions: [
-        {
-          id: "action1",
-          autoId: "1",
-          availableActionId: "actionType1",
-          sortingOrder: 0,
-          type: {
-            id: "type1",
-            name: "Mail",
-            image:
-              "https://help.apple.com/assets/679AC31B6FBB32042D0B4356/679AC31D6FBB32042D0B4363/en_GB/e4dbb8e240d50cf30bab73b272a3760b.png",
-          },
-        },
-        {
-          id: "action2",
-          autoId: "1",
-          availableActionId: "actionType2",
-          sortingOrder: 1,
-          type: {
-            id: "type2",
-            name: "Payment",
-            image:
-              "https://qashier.com/sg/wp-content/uploads/sites/12/2023/07/Qashierx2-icons-fault.png",
-          },
-        },
-      ],
-      trigger: {
-        id: "trigger1",
-        autoId: "1",
-        availableTriggerId: "triggerType1",
-        type: {
-          id: "type1",
-          name: "Webhook",
-          image:
-            "https://kb.pavietnam.vn/wp-content/uploads/2024/08/Webhook-3.png",
-        },
-      },
-    },
-  ];
+  const { loading, autoTasks } = useAutoTasks();
+  // const loading = false;
+  // const autoTasks: AutoTask[] = [
+  //   {
+  //     id: "1",
+  //     userId: "user1",
+  //     name: "Test Task",
+  //     description: "This is a test task",
+  //     actions: [
+  //       {
+  //         id: "action1",
+  //         autoId: "1",
+  //         availableActionId: "actionType1",
+  //         sortingOrder: 0,
+  //         type: {
+  //           id: "type1",
+  //           name: "Mail",
+  //           image:
+  //             "https://help.apple.com/assets/679AC31B6FBB32042D0B4356/679AC31D6FBB32042D0B4363/en_GB/e4dbb8e240d50cf30bab73b272a3760b.png",
+  //         },
+  //       },
+  //       {
+  //         id: "action2",
+  //         autoId: "1",
+  //         availableActionId: "actionType2",
+  //         sortingOrder: 1,
+  //         type: {
+  //           id: "type2",
+  //           name: "Payment",
+  //           image:
+  //             "https://qashier.com/sg/wp-content/uploads/sites/12/2023/07/Qashierx2-icons-fault.png",
+  //         },
+  //       },
+  //     ],
+  //     trigger: {
+  //       id: "trigger1",
+  //       autoId: "1",
+  //       availableTriggerId: "triggerType1",
+  //       type: {
+  //         id: "type1",
+  //         name: "Webhook",
+  //         image:
+  //           "https://kb.pavietnam.vn/wp-content/uploads/2024/08/Webhook-3.png",
+  //       },
+  //     },
+  //   },
+  // ];
 
   const router = useRouter();
 
@@ -120,7 +119,11 @@ export default function Dashboard() {
           </DarkButton>
         </div>
       </div>
-      {loading ? "Loading..." : <AutoTaskTable autoTasks={autoTasks} />}
+      {loading ? (
+        <div className="mt-16 text-7xl flex justify-center">Loading...</div>
+      ) : (
+        <AutoTaskTable autoTasks={autoTasks} />
+      )}
     </div>
   );
 }

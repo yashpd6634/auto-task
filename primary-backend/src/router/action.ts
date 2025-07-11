@@ -15,4 +15,4 @@ router.get("/available", async (req, res) => {
   });
 });
 
-export const actionRouter = Router();
+export const actionRouter = router;

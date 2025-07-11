@@ -7,7 +7,7 @@ export function authMiddleware(
   res: Response,
   next: NextFunction
 ): any {
-  const token = req.headers.authorization?.split(" ")[1] as string;
+  const token = req.headers.authorization as string;
 
   try {
     const payload = jwt.verify(token, JWT_SECRET);
