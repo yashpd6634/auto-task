@@ -3,6 +3,7 @@ import { PrismaClient } from "../generated/prisma";
 
 const app = express();
 const client = new PrismaClient();
+app.use(express.json());
 
 app.post("/hooks/catch/:userId/:autoId", async (req, res) => {
   const { userId, autoId } = req.params;

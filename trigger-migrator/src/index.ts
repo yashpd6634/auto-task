@@ -19,10 +19,12 @@ async function main() {
       take: 10,
     });
 
+    console.log(pendingRows);
+
     producer.send({
       topic: TOPIC_NAME,
       messages: pendingRows.map((row) => ({
-        value: row.autoRunId,
+        value: JSON.stringify({ autoRunId: row.autoRunId, stage: 0 }),
       })),
     });
 
@@ -33,6 +35,8 @@ async function main() {
         },
       },
     });
+
+    await new Promise((r) => setTimeout(r, 3000));
   }
 }
 
