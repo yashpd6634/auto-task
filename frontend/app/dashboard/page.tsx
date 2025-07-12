@@ -108,7 +108,7 @@ export default function Dashboard() {
   return (
     <div>
       <div className="flex justify-center pt-8">
-        <div className="flex justify-between pr-8 max-w-screen-lg w-full">
+        <div className="flex justify-between pr-8 max-w-screen-xl w-full">
           <div className="text-2xl font-bold">My Auto-Tasks</div>
           <DarkButton
             onClick={() => {
@@ -132,10 +132,12 @@ function AutoTaskTable({ autoTasks }: { autoTasks: AutoTask[] }) {
   const router = useRouter();
   return (
     <div className="mt-8 p-8 flex justify-center">
-      <table className="table-auto border-collapse w-full max-w-5xl">
+      <table className="table-auto border-collapse w-full max-w-7xl">
         <thead>
           <tr className="bg-gray-100 border-b">
             <th className="px-4 py-2 text-left">Name</th>
+            <th className="px-4 py-2 text-left">Description</th>
+            <th className="px-4 py-2 text-left">Actions</th>
             <th className="px-4 py-2 text-left">ID</th>
             <th className="px-4 py-2 text-left">Created At</th>
             <th className="px-4 py-2 text-left">Webhook URL</th>
@@ -145,6 +147,8 @@ function AutoTaskTable({ autoTasks }: { autoTasks: AutoTask[] }) {
         <tbody>
           {autoTasks.map((task) => (
             <tr key={task.id} className="hover:bg-gray-50 border-b py-4">
+              <td className="px-4 py-2">{task.name}</td>
+              <td className="px-4 py-2">{task.description}</td>
               <td className="px-4 py-2 flex">
                 <img src={task.trigger.type.image} width={30} height={20} />{" "}
                 {task.actions.map((action) => (
@@ -153,9 +157,9 @@ function AutoTaskTable({ autoTasks }: { autoTasks: AutoTask[] }) {
                   </span>
                 ))}
               </td>
-              <td className="px-4 py-2">{task.description}</td>
+              <td className="px-4 py-2">{task.id}</td>
               <td className="px-4 py-2">Nov 13, 2024</td>
-              <td className="px-4 py-2">{`${HOOKS_URL}/hooks/catch/1/${task.id}`}</td>
+              <td className="px-4 py-2">{`${HOOKS_URL}/hooks/catch/${task.userId}/${task.id}`}</td>
               <td className="px-4 py-2">
                 <LinkButton
                   onClick={() => {

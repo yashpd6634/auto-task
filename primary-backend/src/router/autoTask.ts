@@ -24,8 +24,8 @@ router.post("/", authMiddleware, async (req, res): Promise<any> => {
       userId: id, // Assuming req.id is set by authMiddleware
       trigger: {
         create: {
-          availableTriggerId: parsedData.data.availableTriggerId,
-          metadata: parsedData.data.triggerMetadata,
+          availableTriggerId: parsedData.data.trigger.availableTriggerId,
+          metadata: parsedData.data.trigger.triggerMetadata,
         },
       },
       actions: {

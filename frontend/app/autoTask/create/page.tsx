@@ -5,6 +5,7 @@ import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { Input } from "@/components/Input";
 import { ZapCell } from "@/components/ZapCell";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -28,6 +29,12 @@ function useAvailableActionsAndTrigger() {
   };
 }
 
+interface MyJwtPayload {
+  userId: string;
+  email: string;
+  iat: number;
+}
+
 export default function CreateAutoTaskPage() {
   const router = useRouter();
   const [selectedModalIndex, setSelectedModalIndex] = useState<null | number>(
@@ -48,22 +55,23 @@ export default function CreateAutoTaskPage() {
     }[]
   >([]);
 
+  const [autoTaskName, setAutoTaskName] = useState("");
+  const [autoTaskDescription, setAutoTaskDescription] = useState("");
+
   return (
     <div>
       <div className="flex justify-end bg-slate-200 p-4">
         <PrimaryButton
-          onClick={() => {
+          onClick={async () => {
             if (!selectedTrigger?.id) {
               return;
             }
-            const response = axios.post(
+            const response = await axios.post(
               `${BACKEND_URL}/api/v1/autoTask`,
               {
-                name: "",
-                description: "",
-                userId: "",
+                name: autoTaskName,
+                description: autoTaskDescription,
                 trigger: {
-                  autoId: "",
                   availableTriggerId: selectedTrigger.id,
                   triggerMetadata: {},
                 },
@@ -79,13 +87,29 @@ export default function CreateAutoTaskPage() {
               }
             );
 
-            router.push("/dashboard");
+            if (response.status === 200 || response.status === 201)
+              router.push("/dashboard");
           }}
         >
           Publish
         </PrimaryButton>
       </div>
-      <div className="w-full min-h-screen bg-slate-200 flex flex-col justify-center">
+      <div className="flex justify-center bg-slate-200 pt-5 text-2xl">
+        <div className="flex flex-col">
+          <span className="pb-5 text-4xl">AutoTask Details</span>
+          <Input
+            label="Name"
+            placeholder="Name"
+            onChange={(e) => setAutoTaskName(e.target.value)}
+          />
+          <Input
+            label="Description"
+            placeholder="Description"
+            onChange={(e) => setAutoTaskDescription(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="w-full min-h-screen bg-slate-200 flex flex-col pt-20">
         <div className="flex justify-center w-full">
           <ZapCell
             name={selectedTrigger?.name ? selectedTrigger.name : "Trigger"}

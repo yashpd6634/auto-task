@@ -13,8 +13,10 @@ export const SigninSchema = z.object({
 
 export const AutoTaskSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  availableTriggerId: z.string().min(1, "Trigger type is required"),
-  triggerMetadata: z.any().optional(),
+  trigger: z.object({
+    availableTriggerId: z.string().min(1, "Trigger type is required"),
+    triggerMetadata: z.any().optional(),
+  }),
   description: z.string().optional(),
   actions: z.array(
     z.object({

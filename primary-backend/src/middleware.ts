@@ -12,7 +12,7 @@ export function authMiddleware(
   try {
     const payload = jwt.verify(token, JWT_SECRET);
     // @ts-ignore
-    req.id = payload.id;
+    req.id = payload.userId;
     next();
   } catch (error) {
     return res.status(403).json({
