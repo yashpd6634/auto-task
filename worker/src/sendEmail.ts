@@ -2,17 +2,17 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_APIKEY);
 
-export async function sendEmail(to: string, body: string) {
+export async function sendEmail(
+  to: string,
+  body: string,
+  subject: string = "New Notification from AutoTask"
+) {
   const { data, error } = await resend.emails.send({
     from: "Acme <onboarding@resend.dev>",
     to: [to],
-    subject: "New Notification from AutoTask",
+    subject: subject,
     html: body,
   });
-
-  console.log(to);
-  console.log(body);
-  console.log(data);
 
   if (error) {
     console.error("Email send error:", error);

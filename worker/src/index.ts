@@ -78,8 +78,12 @@ async function main() {
           (currentAction.metadata as JsonObject)?.email as string,
           autoRunMetadata
         );
+        const subject = parse(
+          (currentAction.metadata as JsonObject)?.subject as string,
+          autoRunMetadata
+        );
 
-        await sendEmail(to, body);
+        await sendEmail(to, body, subject);
         console.log(`Sending out an email to ${to} body is ${body}`);
       }
 
