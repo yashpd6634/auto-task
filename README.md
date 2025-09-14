@@ -78,25 +78,30 @@ AutoTask follows a **microservice architecture** with the following key componen
 ## Screenshots
 
 ### Home Page
+
 <img width="1919" height="1025" alt="image" src="https://github.com/user-attachments/assets/1ed68475-984e-42e0-a222-7fa9bfbc8b63" />
 
 ### Signup
+
 <img width="1543" height="1007" alt="image" src="https://github.com/user-attachments/assets/ab493bd0-8b88-4e8c-93d9-2a81d75ae234" />
 
 ### Auto-Task Creatation
+
 <img width="1530" height="721" alt="image" src="https://github.com/user-attachments/assets/f6d1d7ba-a22e-4847-86e2-3f892eea38ee" />
 <img width="787" height="409" alt="image" src="https://github.com/user-attachments/assets/c65aed6a-d4d3-4aa4-845a-293f1194a40d" />
 <img width="783" height="576" alt="image" src="https://github.com/user-attachments/assets/bbe02ab3-74a9-413c-a9d9-c9125e971b4a" />
 
 ### Auto-Task List
+
 <img width="1543" height="543" alt="image" src="https://github.com/user-attachments/assets/d8ac1b22-166a-4433-a1ec-728a574e8d64" />
 
 ### Web-Hook call
+
 <img width="1373" height="941" alt="image" src="https://github.com/user-attachments/assets/8d20b2ed-c035-4190-aa69-f48d0ad93f47" />
 
 ### Email
-<img width="1511" height="407" alt="image" src="https://github.com/user-attachments/assets/ff2a41cb-41e4-4261-af22-c76ac499bad7" />
 
+<img width="1511" height="407" alt="image" src="https://github.com/user-attachments/assets/ff2a41cb-41e4-4261-af22-c76ac499bad7" />
 
 ## 🛠️ Technology Stack
 
@@ -252,7 +257,14 @@ The application uses a well-structured PostgreSQL database with the following ke
    cd ../trigger-migrator && npx prisma migrate dev
    ```
 
-5. **Create Kafka topic**
+5. **Seed the database**
+
+   ```bash
+   # Seed the primary backend database with initial data
+   cd primary-backend && npx prisma db seed
+   ```
+
+6. **Create Kafka topic**
 
    ```bash
    # Get Kafka container ID
