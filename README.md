@@ -220,12 +220,41 @@ The application uses a well-structured PostgreSQL database with the following ke
    ```
 
 4. **Set up databases**
+
    ```bash
    # Run migrations for each service
    cd primary-backend && npx prisma migrate dev
    cd ../hooks && npx prisma migrate dev
    cd ../worker && npx prisma migrate dev
    cd ../trigger-migrator && npx prisma migrate dev
+   ```
+
+5. **Create Kafka topic**
+
+   ```bash
+   # Get Kafka container ID
+   docker ps
+
+   # Access Kafka container
+   docker exec -it {kafka-container-id} /bin/bash
+
+   # Navigate to Kafka bin directory
+   cd /opt/kafka/bin
+
+   # Create the required topic
+   ./kafka-topics.sh --create --topic autoTask-events --bootstrap-server localhost:9092
+
+   # Verify topic creation
+   ./kafka-topics.sh --list --bootstrap-server localhost:9092
+
+   # Exit container
+   exit
+   ```
+
+   **Quick one-liner:**
+
+   ```bash
+   docker exec -it $(docker ps -q --filter ancestor=apache/kafka) /opt/kafka/bin/kafka-topics.sh --create --topic autoTask-events --bootstrap-server localhost:9092
    ```
 
 ### Running the Application
