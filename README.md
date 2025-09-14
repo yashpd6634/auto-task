@@ -91,6 +91,8 @@ AutoTask follows a **microservice architecture** with the following key componen
 <img width="787" height="409" alt="image" src="https://github.com/user-attachments/assets/c65aed6a-d4d3-4aa4-845a-293f1194a40d" />
 <img width="783" height="576" alt="image" src="https://github.com/user-attachments/assets/bbe02ab3-74a9-413c-a9d9-c9125e971b4a" />
 
+<img width="738" height="582" alt="image" src="https://github.com/user-attachments/assets/40075cee-6e85-44c1-8b90-6f33bff68097" />
+
 ### Auto-Task List
 
 <img width="1543" height="543" alt="image" src="https://github.com/user-attachments/assets/d8ac1b22-166a-4433-a1ec-728a574e8d64" />
