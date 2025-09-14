@@ -1,17 +1,7 @@
 # AutoTask - Webhook-Driven Automation Platform
 
 [![TypeScript](https://img.shields.io/badge/typescript-5.0%2B-blue.svg)](https://www.typescriptlang.org/)
-[![Next.js](https://img.s ```env
-DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/autotask_worker"
-RESEND_API_KEY="your-resend-api-key"
-
-````
-
-**trigger-migrator/.env**
-
-```env
-DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/autotask_migrator"
-```ds.io/badge/Next.js-15.3.5-black.svg)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.3.5-black.svg)](https://nextjs.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-6.11.1-green.svg)](https://www.prisma.io/)
 [![Kafka](https://img.shields.io/badge/Apache%20Kafka-2.2.4-orange.svg)](https://kafka.apache.org/)
 
@@ -21,44 +11,42 @@ AutoTask is a powerful microservice-based automation platform that enables users
 
 AutoTask follows a **microservice architecture** with the following key components:
 
-````
+```
+                            AutoTask Architecture
 
-                          AutoTask Architecture
-
-
-┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│ Frontend │ │ Primary Backend │ │ Hooks Server │
-│ (Next.js) │◄──►│ (Express) │ │ (Express) │
-│ Port: 3001 │ │ Port: 3000 │ │ Port: 3002 │
-└─────────────────┘ └─────────────────┘ └─────────────────┘
-│ │ │
-│ ▼ ▼
-│ ┌─────────────────────────────────────────┐
-│ │ PostgreSQL Database │
-│ │ (Docker Container) │
-│ └─────────────────────────────────────────┘
-│ │ │
-│ ▼ ▼
-│ ┌─────────────────┐ ┌─────────────────┐
-│ │ Trigger Migrator│◄──►│ Apache Kafka │
-│ │ (Outbox) │ │ (Docker:9092) │
-│ └─────────────────┘ └─────────────────┘
-│ │
-│ ▼
-│ ┌─────────────────┐
-└────────────────────────────────────►│ Worker │
-│ (Processor) │
-└─────────────────┘
-│
-▼
-┌─────────────────┐
-│ External APIs │
-│ (Resend, etc.) │
-└─────────────────┘
-
+    ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+    │   Frontend      │────►│ Primary Backend │     │  Hooks Server   │
+    │   (Next.js)     │     │   (Express)     │     │   (Express)     │
+    │   Port: 3001    │     │   Port: 3000    │     │   Port: 3002    │
+    └─────────────────┘     └─────────────────┘     └─────────────────┘
+            │                        │                        │
+            │                        ▼                        ▼
+            │               ┌─────────────────────────────────────────┐
+            │               │           PostgreSQL Database           │
+            │               │            (Docker Container)          │
+            │               └─────────────────────────────────────────┘
+            │                        │                        │
+            │                        ▼                        ▼
+            │               ┌─────────────────┐     ┌─────────────────┐
+            │               │ Trigger Migrator│────►│ Apache Kafka    │
+            │               │   (Outbox)      │     │ (Docker:9092)   │
+            │               └─────────────────┘     └─────────────────┘
+            │                                                │
+            │                                                ▼
+            │                                       ┌─────────────────┐
+            └──────────────────────────────────────►│     Worker      │
+                                                    │   (Processor)   │
+                                                    └─────────────────┘
+                                                             │
+                                                             ▼
+                                                    ┌─────────────────┐
+                                                    │  External APIs  │
+                                                    │ (Resend, etc.)  │
+                                                    └─────────────────┘
 ```
 
 **Data Flow:**
+
 1. Users create automation workflows via the Frontend
 2. Primary Backend stores workflow configurations in PostgreSQL
 3. External services trigger webhooks to the Hooks Server
@@ -115,34 +103,32 @@ AutoTask follows a **microservice architecture** with the following key componen
 ## 📁 Project Structure
 
 ```
-
 auto-task/
-├── frontend/ # Next.js frontend application
-│ ├── app/ # App router pages
-│ │ ├── dashboard/ # User dashboard
-│ │ ├── login/ # Authentication pages
-│ │ └── autoTask/ # Automation workflow creation
-│ ├── components/ # Reusable React components
-│ └── public/ # Static assets
-├── primary-backend/ # Main API server
-│ ├── src/
-│ │ ├── router/ # API route handlers
-│ │ ├── db/ # Database configuration
-│ │ └── middleware.ts # Authentication middleware
-│ └── prisma/ # Database schema and migrations
-├── hooks/ # Webhook receiver service
-│ ├── src/index.ts # Webhook endpoint handler
-│ └── prisma/ # Database schema
-├── worker/ # Action processor service
-│ ├── src/
-│ │ ├── parser.ts # Metadata parsing utility
-│ │ └── sendEmail.ts # Email sending logic
-│ └── prisma/ # Database schema
-└── trigger-migrator/ # Outbox pattern implementation
-├── src/index.ts # Kafka message publisher
-└── prisma/ # Database schema
-
-````
+├── frontend/                 # Next.js frontend application
+│   ├── app/                 # App router pages
+│   │   ├── dashboard/       # User dashboard
+│   │   ├── login/          # Authentication pages
+│   │   └── autoTask/       # Automation workflow creation
+│   ├── components/         # Reusable React components
+│   └── public/            # Static assets
+├── primary-backend/        # Main API server
+│   ├── src/
+│   │   ├── router/        # API route handlers
+│   │   ├── db/           # Database configuration
+│   │   └── middleware.ts  # Authentication middleware
+│   └── prisma/           # Database schema and migrations
+├── hooks/                 # Webhook receiver service
+│   ├── src/index.ts      # Webhook endpoint handler
+│   └── prisma/          # Database schema
+├── worker/               # Action processor service
+│   ├── src/
+│   │   ├── parser.ts    # Metadata parsing utility
+│   │   └── sendEmail.ts # Email sending logic
+│   └── prisma/         # Database schema
+└── trigger-migrator/    # Outbox pattern implementation
+    ├── src/index.ts    # Kafka message publisher
+    └── prisma/        # Database schema
+```
 
 ## 🗄️ Database Schema
 
@@ -166,9 +152,10 @@ The application uses a well-structured PostgreSQL database with the following ke
 ### Quick Start with Docker
 
 1. **Start PostgreSQL with Docker**
+
    ```bash
    docker run -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
-````
+   ```
 
 2. **Start Kafka with Docker**
    ```bash
@@ -222,12 +209,17 @@ The application uses a well-structured PostgreSQL database with the following ke
    **worker/.env**
 
    ```env
-   DATABASE_URL="postgresql://username:password@localhost:5432/autotask_worker"
+   DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/autotask_worker"
    RESEND_API_KEY="your-resend-api-key"
    ```
 
-4. **Set up databases**
+   **trigger-migrator/.env**
 
+   ```env
+   DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/autotask_migrator"
+   ```
+
+4. **Set up databases**
    ```bash
    # Run migrations for each service
    cd primary-backend && npx prisma migrate dev
